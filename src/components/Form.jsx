@@ -1,7 +1,9 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useRef} from 'react'
 import { Store } from './StoreProvider';
 
 const Form = () => {
+
+    const formRef = useRef(null)
 
     const onAdd = (event) =>{
         event.preventDefault();
@@ -14,6 +16,7 @@ const Form = () => {
                 }
             }
             )
+            formRef.current.reset()
         }
     }
 
@@ -33,7 +36,7 @@ const Form = () => {
 
     return (
 
-        <form>
+        <form ref={formRef}>
             <input onChange={addTitle} type="text" name='title' placeholder='Title'/>
             <input onChange={addMessage} type="text" name="message" placeholder='Message'/>
             <button onClick={onAdd}>Add note!</button>
