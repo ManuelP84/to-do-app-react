@@ -17,9 +17,13 @@ function reducer(state, action){
             const newStateNoteDeleted ={...state, listOfNotes: newListOfNotesDeleted}
             return newStateNoteDeleted
         case 'update-note':
-            const newListOfNotesFiltered = state.listOfNotes.filter(note => note.id !== action.payload.id)
-            const newListOfNotesFilteredModified = [...newListOfNotesFiltered, action.payload]
-            const newStateNoteUpdated = {...state, listOfNotes: newListOfNotesFilteredModified}
+            const newListOfNotesFiltered = state.listOfNotes.map(note => {
+                if(note.id === action.payload.id){
+                    return action.payload
+                }
+                return note
+            })
+            const newStateNoteUpdated = {...state, listOfNotes: newListOfNotesFiltered}
             return newStateNoteUpdated
     }
 }

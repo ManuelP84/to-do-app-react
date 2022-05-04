@@ -24,15 +24,23 @@ const ListOfToDo = () => {
         return data
     }
 
-    const onChecked = (event, note) => {
+    const onChecked = async (event, note) => {
         const checked = event.currentTarget.checked
-        dispatch(
-            {
+        let noteWithCheckInformation = {...note, done: checked}
+        let noteUpdatedPromise = await fetch("http://localhost:8081/api/update/note",
+        {
+            method:'PUT',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body:JSON.stringify(noteWithCheckInformation)
+        })
+
+        let noteUpdated = await noteUpdatedPromise.json()
+
+        dispatch({
             type: 'update-note',
-            payload: {
-                ...note,
-                done: checked
-            }            
+            payload: noteUpdated                        
         })
     }
 
