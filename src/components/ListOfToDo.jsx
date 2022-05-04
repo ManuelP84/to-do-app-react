@@ -5,8 +5,6 @@ const ListOfToDo = () => {
 
     const {state, dispatch} = useContext(Store)
 
-    console.log(state)
-
     return (
     <div>
         <h1>Actions pending to be done</h1>
